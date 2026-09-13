@@ -44,8 +44,8 @@ export default function Poll() {
           Help us build your ideal chai maker.
         </h2>
         <p className="mt-5 max-w-[58ch] text-[17px] leading-relaxed text-warm">
-          Tank size and how the pod bay works are still open. Your answers move
-          those decisions.
+          Tank size and how the spice basket works are still open. Your answers
+          move those decisions.
         </p>
 
         {sent ? (

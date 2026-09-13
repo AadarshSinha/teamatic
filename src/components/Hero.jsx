@@ -1,29 +1,20 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Check, Loader2 } from 'lucide-react'
-import ChaiMaker3D from './ChaiMaker3D.jsx'
 import { submitForm } from '../lib/submit.js'
 
 /**
  * Hero. The headline's job is to say what the object is in the first four
  * words — a landing page for an unfamiliar appliance fails if the visitor has
  * to infer the category.
+ *
+ * The product render is a full-bleed background from `lg` up, with a gradient
+ * scrim keeping the left column legible over it. Below `lg` it stacks under
+ * the copy instead, because a cover-crop of a landscape shot puts the machine
+ * directly behind the headline on a phone.
  */
 export default function Hero() {
-  const pointer = useRef({ x: 0, y: 0 })
   const [status, setStatus] = useState('idle') // idle | sending | done | error
   const [error, setError] = useState('')
-
-  const handleMove = (e) => {
-    const r = e.currentTarget.getBoundingClientRect()
-    pointer.current = {
-      x: ((e.clientX - r.left) / r.width) * 2 - 1,
-      y: ((e.clientY - r.top) / r.height) * 2 - 1,
-    }
-  }
-
-  const handleLeave = () => {
-    pointer.current = { x: 0, y: 0 }
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -48,15 +39,9 @@ export default function Hero() {
   }
 
   return (
-    <section
-      id="hero"
-      className="relative overflow-hidden border-b border-hair/60"
-      onPointerMove={handleMove}
-      onPointerLeave={handleLeave}
-    >
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 lg:grid-cols-12 lg:gap-6 lg:py-24">
-        {/* Left: what it is */}
-        <div className="lg:col-span-5">
+    <section id="hero" className="relative overflow-hidden border-b border-hair/60">
+      <div className="relative mx-auto max-w-6xl px-6 py-16 lg:py-28">
+        <div className="relative z-10 lg:max-w-[46%]">
           <p className="eyebrow mb-5 text-amber">Automatic chai maker · Pre-launch</p>
 
           <h1 className="font-display text-[clamp(2.5rem,6vw,4rem)] font-extrabold leading-[0.98] tracking-[-0.025em] text-white">
@@ -65,11 +50,12 @@ export default function Hero() {
             <span className="text-amber">Without the stove.</span>
           </h1>
 
-          <p className="mt-6 max-w-[48ch] text-[17px] leading-relaxed text-warm">
+          <p className="mt-6 max-w-[46ch] text-[17px] leading-relaxed text-warm">
             Teamatic is a countertop machine that makes real masala chai end to
-            end. You load water, milk and a chai pod once. It boils, simmers the
-            patti, strains the leaves out and pours two cups — then rinses itself.
-            Start it from your phone before you get out of bed.
+            end. You load water, milk, loose leaf and whole spices — your own,
+            not a pod. It boils, simmers the patti, strains the leaves out and
+            pours two cups, then rinses itself. Start it from your phone before
+            you get out of bed.
           </p>
 
           {status === 'done' ? (
@@ -91,7 +77,7 @@ export default function Hero() {
                   type="email"
                   autoComplete="email"
                   placeholder="you@example.com"
-                  className="min-w-0 flex-1 rounded-xl border border-hair bg-raised px-4 py-3 text-[15px] text-white transition-colors focus:border-amber"
+                  className="min-w-0 flex-1 rounded-xl border border-hair bg-raised/80 px-4 py-3 text-[15px] text-white backdrop-blur transition-colors focus:border-amber"
                 />
                 <button
                   type="submit"
@@ -122,17 +108,33 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Right: the appliance */}
-        <div className="bloom relative lg:col-span-7">
-          <ChaiMaker3D pointerTarget={pointer} />
-          <p className="mt-2 text-center font-mono text-[11px] text-dim lg:text-right">
-            Move your cursor to inspect
-          </p>
+        {/* Product render. Stacked below the copy on small screens; full-bleed
+            behind it from lg up. Eager + high priority: this is the largest
+            element on the page, so it decides Largest Contentful Paint. */}
+        <div className="relative mt-12 lg:absolute lg:inset-0 lg:z-0 lg:mt-0">
+          <img
+            src="/hero-1376.jpg"
+            srcSet="/hero-700.jpg 700w, /hero-1000.jpg 1000w, /hero-1376.jpg 1376w"
+            sizes="(min-width: 1024px) 100vw, 100vw"
+            alt="Teamatic on a kitchen counter, chai steaming in the glass carafe above the glowing amber base, with loose tea, cardamom and cinnamon beside it"
+            width="1376"
+            height="768"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="h-56 w-full rounded-2xl object-cover object-[72%_center] sm:h-80 lg:h-full lg:rounded-none"
+          />
+          {/* Scrim: vertical on mobile so the copy above stays anchored,
+              horizontal on desktop so the left column reads over the image. */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-ink via-ink/30 to-transparent lg:rounded-none lg:bg-gradient-to-r lg:from-ink lg:via-ink/85 lg:to-ink/10"
+            aria-hidden="true"
+          />
         </div>
       </div>
 
-      {/* Spec rail — what the machine actually does, in chai's own units */}
-      <div className="border-t border-hair/60 bg-surface/60">
+      {/* Spec rail — what the machine does, in chai's own units */}
+      <div className="relative z-10 border-t border-hair/60 bg-surface/80 backdrop-blur">
         <dl className="mx-auto grid max-w-6xl grid-cols-2 px-6 sm:grid-cols-4 sm:divide-x sm:divide-hair/60">
           <div className="py-5 sm:px-6 sm:first:pl-0">
             <dt className="font-mono text-[11px] text-dim">Makes</dt>
@@ -156,10 +158,10 @@ export default function Hero() {
             </dd>
           </div>
           <div className="py-5 sm:px-6 sm:last:pr-0">
-            <dt className="font-mono text-[11px] text-dim">Strength</dt>
+            <dt className="font-mono text-[11px] text-dim">Takes</dt>
             <dd className="mt-1 font-display text-[22px] font-bold text-white">
-              6 steps
-              <span className="ml-1 text-[13px] font-normal text-warm">light → kadak</span>
+              Loose leaf
+              <span className="ml-1 text-[13px] font-normal text-warm">+ whole spices</span>
             </dd>
           </div>
         </dl>

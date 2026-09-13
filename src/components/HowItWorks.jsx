@@ -1,4 +1,4 @@
-import { Droplet, Package, Smartphone, CupSoda } from 'lucide-react'
+import { Droplet, Leaf, Smartphone, CupSoda } from 'lucide-react'
 
 /**
  * How it works. Numbered because these genuinely are sequential steps — the
@@ -13,10 +13,10 @@ const steps = [
     note: 'Milk chamber stays chilled',
   },
   {
-    icon: Package,
-    title: 'Drop in a pod',
-    body: 'One pod holds the tea and the masala — ginger, elaichi, saunf, whatever that blend is. Or skip the pods and spoon in your own patti and spices.',
-    note: 'Pods optional, never locked',
+    icon: Leaf,
+    title: 'Add leaf and spices',
+    body: 'Spoon in your own patti and whatever the blend is that morning — fresh ginger, elaichi, saunf, a stick of dalchini. Whole spices, not powder. Nothing proprietary, nothing to reorder.',
+    note: 'No pods, no refills to buy',
   },
   {
     icon: Smartphone,
