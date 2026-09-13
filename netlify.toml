@@ -5,7 +5,7 @@
 [build.environment]
   NODE_VERSION = "20"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# No catch-all rewrite: this is a single page with anchor links, not a
+# client-side router. Unknown paths should 404 rather than serve the landing
+# page with a 200 — otherwise every bot probe (/.env, /.git/config) counts as
+# a successful pageview and reads as duplicate content to search engines.

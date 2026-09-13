@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Matte-black body with the amber heating ring and the chai inside:
+       the two most identifiable parts of the appliance, legible at 16px. -->
+  <rect width="32" height="32" rx="7" fill="#0A0A0B"/>
+  <circle cx="16" cy="16" r="9.5" fill="none" stroke="#D97706" stroke-width="3"/>
+  <circle cx="16" cy="16" r="6" fill="#B0703A"/>
+</svg>
