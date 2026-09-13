@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teamatic — the automatic chai maker</title>
+    <meta name="description" content="Teamatic boils, simmers, strains and pours real masala chai on its own. Start it from your phone; it rinses itself out after." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" />
+  </head>
+  <body>
+    <!-- Static form declarations. Netlify's build step scans the served HTML to
+         create form collectors; a React app renders too late to be seen, so the
+         fields are declared once here and the real forms post to them. -->
+    <form name="waitlist" netlify netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="city" />
+      <input name="bot-field" />
+    </form>
+    <form name="poll" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="cups" />
+      <input type="text" name="pain" />
+      <input type="text" name="milk" />
+      <input name="bot-field" />
+    </form>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

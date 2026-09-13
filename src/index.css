@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Teamatic commits to a single dark world — the appliance's own finish. Everything
+   is painted explicitly so the page never borrows a host background. */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-ink font-sans text-[#E7E5E4] antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  input::placeholder {
+    color: #6b6560;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em];
+  }
+
+  /* Glassmorphism: a semi-transparent dark pane over a blurred backdrop, with a
+     border that catches the amber light along its top edge. */
+  .glass {
+    background: linear-gradient(160deg, rgba(40, 40, 46, 0.72), rgba(18, 18, 21, 0.62));
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
+    border: 1px solid rgba(217, 119, 6, 0.16);
+    box-shadow:
+      0 1px 0 rgba(245, 158, 11, 0.14) inset,
+      0 24px 60px -30px rgba(0, 0, 0, 0.9);
+    transition:
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .glass:hover {
+    border-color: rgba(217, 119, 6, 0.4);
+    box-shadow:
+      0 1px 0 rgba(245, 158, 11, 0.3) inset,
+      0 30px 70px -28px rgba(217, 119, 6, 0.28);
+  }
+
+  .glass > * {
+    transform: translateZ(28px);
+  }
+
+  /* Ambient amber bloom behind the appliance and the closing panel. */
+  .bloom::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(closest-side, rgba(217, 119, 6, 0.16), transparent 72%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
