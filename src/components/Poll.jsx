@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { Check } from 'lucide-react'
 import { submitForm } from '../lib/submit.js'
 
-// No price appears anywhere on the page, so the milk question asks about the
-// tradeoff in plain terms instead of naming a figure.
 const questions = [
   {
     key: 'cups',
@@ -19,11 +17,6 @@ const questions = [
       'Washing the pan and strainer',
       'Never the same twice',
     ],
-  },
-  {
-    key: 'milk',
-    legend: 'Should it pour the milk too, even if that makes the machine bigger and costlier?',
-    options: ['Yes, essential', 'Nice to have', 'Keep it simple and cheap'],
   },
 ]
 
@@ -46,13 +39,13 @@ export default function Poll() {
   return (
     <section id="poll" className="border-y border-hair/60 bg-surface py-20 lg:py-28">
       <div className="mx-auto max-w-3xl px-6">
-        <p className="eyebrow mb-4 text-amber">Three questions</p>
+        <p className="eyebrow mb-4 text-amber">Two questions</p>
         <h2 className="font-display text-[clamp(1.9rem,4.2vw,2.75rem)] font-extrabold leading-[1.05] tracking-[-0.02em] text-white">
           Help us build your ideal chai maker.
         </h2>
         <p className="mt-5 max-w-[58ch] text-[17px] leading-relaxed text-warm">
-          Tank size, pod bay and whether the milk chamber ships at all are still
-          open. Your answers move those decisions.
+          Tank size and how the pod bay works are still open. Your answers move
+          those decisions.
         </p>
 
         {sent ? (
@@ -62,11 +55,9 @@ export default function Poll() {
             </div>
             <h3 className="font-display text-[20px] font-bold text-white">Logged — thank you.</h3>
             <p className="mt-3 text-[15px] leading-relaxed text-warm">
-              Your house makes <strong className="text-white">{answers.cups}</strong> cups a day,{' '}
-              <strong className="text-white">{answers.pain.toLowerCase()}</strong> is what goes
-              wrong, and on the milk chamber you said{' '}
-              <strong className="text-white">{answers.milk.toLowerCase()}</strong>. That goes
-              straight into the spec review.
+              Your house makes <strong className="text-white">{answers.cups}</strong> cups a day,
+              and <strong className="text-white">{answers.pain.toLowerCase()}</strong> is what goes
+              wrong most often. That goes straight into the spec review.
             </p>
           </div>
         ) : (

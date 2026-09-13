@@ -29,7 +29,6 @@ export default function Hero() {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
     const email = String(form.get('email') || '').trim()
-    const city = String(form.get('city') || '').trim()
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('That address looks incomplete — check it and try again.')
@@ -39,7 +38,7 @@ export default function Hero() {
     setError('')
     setStatus('sending')
     try {
-      await submitForm('waitlist', { email, city })
+      await submitForm('waitlist', { email })
       setStatus('done')
     } catch {
       // The address is valid and the visitor can't fix a network failure, so
@@ -105,17 +104,6 @@ export default function Hero() {
                   Join the waitlist
                 </button>
               </div>
-
-              <label htmlFor="city" className="sr-only">
-                City
-              </label>
-              <input
-                id="city"
-                name="city"
-                type="text"
-                placeholder="Your city — tells us where to ship first"
-                className="mt-3 w-full rounded-xl border border-hair bg-raised px-4 py-3 text-[15px] text-white transition-colors focus:border-amber"
-              />
             </form>
           )}
 
